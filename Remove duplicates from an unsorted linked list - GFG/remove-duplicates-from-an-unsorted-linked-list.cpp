@@ -43,22 +43,19 @@ class Solution
     //Function to remove duplicates from unsorted linked list.
     Node * removeDuplicates( Node *head) 
     {
-     unordered_set<int> st;
-     Node* temp=head;
-     if(head==NULL){
-         return head;
-     }
-     st.insert(temp->data);
-     while(temp->next!=NULL){
-         if(st.find(temp->next->data)!=st.end()){
-             temp->next=temp->next->next;
-         }
-         else{
-             st.insert(temp->next->data);
-             temp=temp->next;
-         }
-     }
-     return head;
+       set<int> st;
+       Node* temp=head;
+       st.insert(temp->data);
+       while(temp->next!=NULL){
+           if(st.find(temp->next->data) != st.end()){
+               temp->next=temp->next->next;
+           }
+           else{
+               temp=temp->next;
+               st.insert(temp->data);
+           }
+       }
+       return head;
     }
 };
 
