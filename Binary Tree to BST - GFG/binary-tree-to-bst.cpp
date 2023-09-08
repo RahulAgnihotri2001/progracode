@@ -112,39 +112,54 @@ class Solution{
     // The given root is the root of the Binary Tree
     // Return the root of the generated BST
     
-    void fun(Node* root ,vector<int> &vec){
+    void inorder(Node* root,vector<int> &vec){
         if(root==NULL){
             return;
+        }
+        if(root->left){
+            inorder(root->left,vec);
         }
         vec.push_back(root->data);
-        if(root->left){
-            fun(root->left,vec);
-        }
         if(root->right){
-            fun(root->right,vec);
+            inorder(root->right,vec);
         }
-        return;
     }
     
-    void inorder(Node* root,vector<int> &vec,int &index){
+    void fun(Node* root,vector<int> &vec,int &index){
         if(root==NULL){
             return;
         }
-        inorder(root->left,vec,index);
-        root->data=vec[index];
-        index++;
-        inorder(root->right,vec,index);
-        return;
+        if(root->left){
+            fun(root->left,vec,index);
+            //cout<<index<<"/";
+        }
+            root->data=vec[index];
+            index++;
+        if(root->right){
+            fun(root->right,vec,index);
+        }
     }
+    
     
     Node *binaryTreeToBST (Node *root)
     {
+        //Your code goes here
         vector<int> vec;
-        fun(root,vec);
+        
+       // Node* temp=root;
+        inorder(root,vec);
+        //return root;
         sort(vec.begin(),vec.end());
+        /*
+        for(int i=0;i<vec.size();i++){
+            cout<<vec[i]<<" , ";
+        }
+        */
         int index=0;
-        inorder(root,vec,index);
+        //temp=root;
+        fun(root,vec,index);
         return root;
+    
     }
 };
 
