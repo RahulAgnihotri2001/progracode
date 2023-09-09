@@ -96,29 +96,29 @@ struct Node {
 // return the Kth largest element in the given BST rooted at 'root'
 class Solution
 {
+    int answer=0;
     public:
     
-    void fun(Node* root,int &index,int &answer,int k){
-        if(root==NULL){
+    void reinorder(Node* root,int &k){
+        if(root->right){
+            reinorder(root->right,k);
+        }
+        if(k<1){
             return;
         }
-        fun(root->right,index,answer,k);
-
-        if(index==k){
+        if(k==1){
             answer=root->data;
         }
-       // cout<<root->data<<" , ";
-        index++;
-        fun(root->left,index,answer,k);
+        k--;
+        if(root->left){
+            reinorder(root->left,k);
+        }
     }
     
-    
-    int kthLargest(Node *root, int K)
+    int kthLargest(Node *root, int k)
     {
-        //Do inordern traversal k times
-        int index=1;
-        int answer=0;
-        fun(root,index,answer,K);
+        //Your code here
+        reinorder(root,k);
         return answer;
     }
 };
