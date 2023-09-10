@@ -15,7 +15,61 @@ struct Node {
     }
 };
 
-Node* insert(Node* node, int data);
+
+// } Driver Code Ends
+// Function to insert a node in a BST.
+
+/*
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution
+{
+    public:
+        Node* insert(Node* node, int data) {
+        
+            // Your code goes here
+            Node* temp=node;
+            while(temp!=NULL){
+                if(temp->data==data){
+                    return node;
+                }
+                if(temp->data > data){
+                    if(temp->left)
+                    temp=temp->left;
+                    else{
+                        Node* x=new Node(data);
+                        temp->left=x;
+                        return node;
+                    }
+                }
+                else{
+                    if(temp->right)
+                    temp=temp->right;
+                    else{
+                        Node* x=new Node(data);
+                        temp->right=x;
+                        return node;
+                    }
+                }
+            }
+            return node;
+            
+    }
+
+};
+
+
+//{ Driver Code Starts.
 
 // Function to Build Tree
 Node* buildTree(string str) {
@@ -99,8 +153,8 @@ int main() {
         getline(cin, s);
         int k = stoi(s);
         // getline(cin, s);
-
-        insert(root, k);
+        Solution ob;
+        ob.insert(root, k);
         vector<int> v;
         inorder(root, v);
         for (int i = 0; i < v.size(); i++) cout << v[i] << " ";
@@ -112,23 +166,3 @@ int main() {
 }
 
 // } Driver Code Ends
-
-
-// Function to insert a node in a BST.
-Node* insert(Node* root, int key) {
-    // Your code here
-    if(root==NULL){
-        Node* temp=new Node(key);
-        return temp;
-    }
-    if(root->data==key){
-        return root;
-    }
-    if(root->data<key){
-        root->right=insert(root->right,key);
-    }
-    else{
-        root->left=insert(root->left,key);
-    }
-    return root;
-}
